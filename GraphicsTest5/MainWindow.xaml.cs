@@ -160,6 +160,7 @@ namespace GraphicsTest5
                         MyCanvas.Children.Remove(bullet.rect);
                         bullet.Visible = false;
                         playerobj.rect.Fill = Brushes.Green;
+                        //test2
                     }
                 }
             }
