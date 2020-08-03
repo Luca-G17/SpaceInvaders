@@ -38,7 +38,7 @@ namespace GraphicsTest5
             Canvas.SetLeft(rect, GetLeft);
             Canvas.SetTop(rect, GetTop);
         }
-
+        
 
         public override double GetLeft
         {

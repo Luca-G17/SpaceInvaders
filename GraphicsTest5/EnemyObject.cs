@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace GraphicsTest5
 {
@@ -22,15 +23,16 @@ namespace GraphicsTest5
 
         public EnemyObject(double height, double width, double x_pos, double y_pos, Canvas MyCanvas)
         {
+            ImageBrush EnemySkin = new ImageBrush();
             GetLeft = x_pos;
             GetTop = y_pos;
             Height = height;
             Width = width;
             rect.Width = Width;
             rect.Height = Height;
-            rect.Fill = Brushes.Red;
-            rect.Stroke = Brushes.White;
-
+            EnemySkin.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/invader1.gif"));
+            //rect.Stroke = Brushes.White;
+            rect.Fill = EnemySkin;
             MyCanvas.Children.Add(rect);
 
             Canvas.SetLeft(rect, GetLeft);

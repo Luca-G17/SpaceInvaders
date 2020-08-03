@@ -28,6 +28,7 @@ namespace GraphicsTest5
         List<EnemyObject> enemies = new List<EnemyObject>();
         int down_timer = 0;
         Random random = new Random();
+        ImageBrush playerSkin = new ImageBrush();
         public MainWindow()
         {
             InitializeComponent();
@@ -114,18 +115,21 @@ namespace GraphicsTest5
         private void EnemyCollision()
         {
             int first_enemy = 0;
-            int last_enemy = -1;
-            bool enemy_found = false;
-            foreach (EnemyObject enemy in enemies)
+            int last_enemy = 0;
+            for (int i = 0; i < enemies.Count(); i++)
             {
-                if (enemy.Visible)
+                if (enemies[i].Visible)
                 {
-                    last_enemy += 1;
-                    if (!enemy_found)
-                    {
-                        first_enemy = enemies.IndexOf(enemy);
-                        enemy_found = true;
-                    }
+                    first_enemy = i;
+                    break;
+                }
+            }
+            for (int i = enemies.Count() - 1; i > -1; i--)
+            {
+                if (enemies[i].Visible)
+                {
+                    last_enemy = i;
+                    break;
                 }
             }
             if (enemies[last_enemy].GetLeft >= 742 || enemies[first_enemy].GetLeft <= 0)
@@ -160,7 +164,7 @@ namespace GraphicsTest5
                         MyCanvas.Children.Remove(bullet.rect);
                         bullet.Visible = false;
                         playerobj.rect.Fill = Brushes.Green;
-                        //test2
+                       
                     }
                 }
             }

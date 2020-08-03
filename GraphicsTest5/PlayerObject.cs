@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using System.Windows.Media;
 using System.Runtime.CompilerServices;
+using System.Windows.Media.Imaging;
 
 namespace GraphicsTest5
 {
@@ -26,13 +27,15 @@ namespace GraphicsTest5
 
         public PlayerObject(double height, double width, double x_pos, double y_pos, Canvas myCanvas)
         {
+            ImageBrush playerSkin = new ImageBrush();
             GetLeft = x_pos;
             GetTop = y_pos;
             Height = height;
             Width = width;
             rect.Width = Width;
             rect.Height = Height;
-            rect.Fill = Brushes.White;
+            playerSkin.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/player.png"));
+            rect.Fill = playerSkin;
             
             myCanvas.Children.Add(rect);
 
