@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
-
 
 namespace GraphicsTest5
 {
@@ -29,6 +22,7 @@ namespace GraphicsTest5
         int down_timer = 0;
         Random random = new Random();
         ImageBrush playerSkin = new ImageBrush();
+        bool end_game = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -37,9 +31,15 @@ namespace GraphicsTest5
             gameTimer.Start();
             MyCanvas.Focus();
             playerobj = new PlayerObject(72, 42, 400, 300, MyCanvas);
+            int x = 0;
             for (int i = 0; i < 15; i++)
             {
-                enemies.Add(new EnemyObject(30, 30, 50 + 35 * i, 50, MyCanvas));
+                x += 1;
+                if (x == 8)
+                {
+                    x = 1;
+                }
+                enemies.Add(new EnemyObject(30, 30, 50 + 35 * i, 50, MyCanvas, x));
             }
         }
         private void GameLoop(object sender, EventArgs e)
@@ -66,6 +66,12 @@ namespace GraphicsTest5
             }
             playerobj.Move();
             Canvas.SetLeft(playerobj.rect, playerobj.GetLeft);
+            if (end_game)
+            {
+                Thread.Sleep(1000);
+                Application.Current.Shutdown();
+            }
+
         }
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
@@ -112,16 +118,33 @@ namespace GraphicsTest5
                 }
             }
         }
+        private void CreateATextBlock(string msg, Color color)
+        {
+            TextBlock txtBlock = new TextBlock();
+            txtBlock.Height = 450;
+            txtBlock.Width = 800;
+            txtBlock.Text = msg;
+            txtBlock.FontSize = 150;
+            txtBlock.Foreground = new SolidColorBrush(color);
+            MyCanvas.Children.Add(txtBlock);
+        }
+
         private void EnemyCollision()
         {
+            bool enemy_found = false;
             int first_enemy = 0;
             int last_enemy = 0;
+            int enemy_count = 0;
             for (int i = 0; i < enemies.Count(); i++)
             {
                 if (enemies[i].Visible)
                 {
-                    first_enemy = i;
-                    break;
+                    if (!enemy_found)
+                    {
+                        first_enemy = i;
+                        enemy_found = true;
+                    }
+                    enemy_count += 1;
                 }
             }
             for (int i = enemies.Count() - 1; i > -1; i--)
@@ -131,6 +154,11 @@ namespace GraphicsTest5
                     last_enemy = i;
                     break;
                 }
+            }
+            if (enemy_count == 0 && !end_game)
+            {
+                CreateATextBlock("YOU WIN", Colors.Green);
+                end_game = true;
             }
             if (enemies[last_enemy].GetLeft >= 742 || enemies[first_enemy].GetLeft <= 0)
             {
@@ -151,7 +179,6 @@ namespace GraphicsTest5
                         {
                             MyCanvas.Children.Remove(enemy.rect);
                             MyCanvas.Children.Remove(bullet.rect);
-                            //enemy.rect.Fill = Brushes.Yellow;
                             enemy.Visible = false;
                             bullet.Visible = false;
                         }
@@ -163,8 +190,8 @@ namespace GraphicsTest5
                     {
                         MyCanvas.Children.Remove(bullet.rect);
                         bullet.Visible = false;
-                        playerobj.rect.Fill = Brushes.Green;
-                       
+                        CreateATextBlock("YOU DIED", Colors.Red);
+                        end_game = true;
                     }
                 }
             }

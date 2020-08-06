@@ -99,9 +99,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="images\Invader.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="images\invader1.gif" />
     <Resource Include="images\invader2.gif" />
     <Resource Include="images\invader3.gif" />

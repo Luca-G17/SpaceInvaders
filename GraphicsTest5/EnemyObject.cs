@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Shapes;
-using System.Windows.Threading;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -21,7 +14,7 @@ namespace GraphicsTest5
         private double x_vel = 3;
         private double y_vel = 0;
 
-        public EnemyObject(double height, double width, double x_pos, double y_pos, Canvas MyCanvas)
+        public EnemyObject(double height, double width, double x_pos, double y_pos, Canvas MyCanvas, int inv_num)
         {
             ImageBrush EnemySkin = new ImageBrush();
             GetLeft = x_pos;
@@ -30,7 +23,7 @@ namespace GraphicsTest5
             Width = width;
             rect.Width = Width;
             rect.Height = Height;
-            EnemySkin.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/invader1.gif"));
+            EnemySkin.ImageSource = new BitmapImage(new Uri($"pack://application:,,,/images/invader{inv_num}.gif"));
             //rect.Stroke = Brushes.White;
             rect.Fill = EnemySkin;
             MyCanvas.Children.Add(rect);

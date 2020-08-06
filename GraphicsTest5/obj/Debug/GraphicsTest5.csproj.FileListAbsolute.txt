@@ -13,4 +13,3 @@ C:\Users\lucag\source\repos\GraphicsTest5\GraphicsTest5\obj\Debug\GraphicsTest5.
 C:\Users\lucag\source\repos\GraphicsTest5\GraphicsTest5\obj\Debug\GraphicsTest5.csproj.CoreCompileInputs.cache
 C:\Users\lucag\source\repos\GraphicsTest5\GraphicsTest5\obj\Debug\GraphicsTest5.exe
 C:\Users\lucag\source\repos\GraphicsTest5\GraphicsTest5\obj\Debug\GraphicsTest5.pdb
-C:\Users\lucag\source\repos\GraphicsTest5\GraphicsTest5\obj\Debug\GraphicsTest5_Content.g.cs
